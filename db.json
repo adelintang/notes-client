@@ -44,6 +44,15 @@
         "#js"
       ],
       "body": "Belajar fetch api to server"
+    },
+    {
+      "id": 661,
+      "title": "Learn SASS",
+      "tags": [
+        "#fe",
+        "#css"
+      ],
+      "body": "Belajar Variabel"
     }
   ]
 }

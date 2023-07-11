@@ -15,13 +15,13 @@ const Dashboard = () => {
       const notesFromServer = await fetchNotes();
       setNotes(notesFromServer);
     }
-    
+
     getNotes();
   }, [])
 
   // get all notes
   const fetchNotes = async () => {
-    const res = await fetch(`http://localhost:5000/notes`);
+    const res = await fetch(import.meta.env.VITE_API_URL);
     const data = await res.json();
     return data;
   }
@@ -35,22 +35,24 @@ const Dashboard = () => {
 
   // add new notes
   const addNotes = async (newNote) => {
-    const res = await fetch(`http://localhost:5000/notes`, {
+    const option = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(newNote)
-    });
+    }
 
+    const res = await fetch(import.meta.env.VITE_API_URL, option);
     const data = await res.json();
 
     setNotes([...notes, data]);
+    setShowAddTask(!showAddTask);
   }
 
   // delete notes
   const deleteNotes = async (id) => {
-    await fetch(`http://localhost:5000/notes/${id}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/${id}`, {
       method: 'DELETE'
     });
 
@@ -63,29 +65,32 @@ const Dashboard = () => {
 
   // edit note
   const editNote = async (value) => {
-    const res = await fetch(`http://localhost:5000/notes/${id}`, {
+    const option = {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(value)
-    });
+    }
 
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/${id}`,option);
     const data = await res.json();
 
-    setNotes(notes.map((note) => note.id === id ? { 
-        ...note, title: data.title, tags: data.tags, body: data.body 
-      } : note));
+    setNotes(notes.map((note) => note.id === id ? {
+      ...note, title: data.title, tags: data.tags, body: data.body
+    } : note));
     setShowEditTask(!showEditTask);
   }
 
+  const layout = showAddTask || showEditTask ? 'lg:flex' : ''; 
+
   return (
-    <div className="w-[80%] mx-auto border border-solid border-slate-800 box-border p-4">
-      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
-      <div className="">
+    <div className="container px-8 lg:px-12 mx-auto box-border p-4">
+      <Header onAdd={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} showEdit={showEditTask} />
+      <div className={`${layout} justify-between`}>
         {showAddTask && <AddTask onAdd={addNotes} />}
-        {showEditTask && <EditTask id={id} notes={notes} onEdit={editNote} />}
-        <Notes notes={notes} layout={showAddTask}
+        {showEditTask && <EditTask id={id} notes={notes} onEdit={editNote} onClose={() => setShowEditTask(!showEditTask)} />}
+        <Notes notes={notes} layoutAdd={showAddTask} layoutEdit={showEditTask}
           onDelete={deleteNotes} getIdNote={getIdNote} onShowEdit={() => setShowEditTask(!showAddTask)} />
       </div>
     </div>

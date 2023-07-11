@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { FaTimes } from 'react-icons/fa';
 
-const EditTask = ({ id, notes, onEdit }) => {
+const EditTask = ({ id, notes, onEdit, onClose }) => {
   const note = notes.find((elem) => elem.id === id);
 
   const [title, setTitle] = useState(note.title);
@@ -20,7 +21,7 @@ const EditTask = ({ id, notes, onEdit }) => {
   const inputStyle = "block w-[100%] py-2 pl-2 rounded-sm text-black mb-4 font-normal focus:outline-none focus:ring focus:ring-blue-400 bg-slate-200"
 
   return (
-    <form className="bg-slate-800 box-border p-4 mb-8 rounded-sm"
+    <form className="bg-slate-800 box-border m-2 p-4 mb-8 rounded-sm lg:order-last lg:w-[35%] lg:h-72 relative"
       onSubmit={submitHandler}
     >
       <input type="text" id="title" placeholder="masukkan title: my title"
@@ -41,6 +42,11 @@ const EditTask = ({ id, notes, onEdit }) => {
         onChange={(e) => setBody(e.target.value)}
       />
       <input type="submit" className="block w-[100%] mt-16 bg-blue-400 py-2 rounded-sm font-semibold cursor-pointer text-white" value="edit" />
+      <div className="absolute -top-3 -right-3 bg-blue-400 rounded-full p-1"
+        onClick={onClose}
+      >
+        <FaTimes className="text-white font-bold cursor-pointer text-xl" />
+      </div>
     </form>
   )
 }
