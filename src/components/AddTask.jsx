@@ -12,8 +12,7 @@ const AddTask = ({ onAdd }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    const id = Math.floor(Math.random() * 1000) + 1;
-    onAdd({ id, title, tags, body });
+    onAdd({ title, tags, body });
   }
 
   const inputStyle = "block w-[100%] py-2 pl-2 rounded-sm text-black mb-4 font-normal focus:outline-none focus:ring focus:ring-blue-400 bg-slate-200"

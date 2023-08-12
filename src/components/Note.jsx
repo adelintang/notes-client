@@ -2,12 +2,14 @@ import { FaInfoCircle, FaEdit, FaTrash } from "react-icons/fa"
 
 const Note = ({ note, onDelete, getIdNote, onShowEdit }) => {
   const deleteHandler = () => {
-    confirm("Yakin menghapus?") && onDelete(note.id);
+    confirm('Yakin menghapus ?') && onDelete(note._id);
   }
 
-  const editHandler = () => {
+  const editHandler = (e) => {
+    e.preventDefault();
     onShowEdit();
-    getIdNote(note.id);
+    getIdNote(note._id);
+    console.log(note._id);
   }
 
   return (
@@ -19,7 +21,7 @@ const Note = ({ note, onDelete, getIdNote, onShowEdit }) => {
       ))}
       <div className="absolute top-2 right-2 flex">
         <FaEdit className="text-green-700 mr-2 cursor-pointer text-xl hover:text-slate-800"
-          onClick={editHandler}/>
+          onClick={(e) => editHandler(e)}/>
         <FaTrash className="text-red-500 font-bold cursor-pointer text-xl hover:text-slate-800"
           onClick={deleteHandler} />
       </div>

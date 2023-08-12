@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-const Register = () => {
+const Register = ({ onRegister }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,7 +19,7 @@ const Register = () => {
 
   const handleForm = (e) => {
     e.preventDefault();
-    console.log({ username, email, password })
+    onRegister({ username, email, password })
   }
 
   const inputStyle = "block w-[100%] py-2 pl-2 rounded-sm text-black mb-4 font-semibold focus:outline-none focus:ring focus:ring-blue-400 bg-slate-200"

@@ -2,7 +2,7 @@ import { useState } from "react"
 import Login from "../components/Login"
 import Register from "../components/Register"
 
-const Home = () => {
+const Home = ({ onLogin, onRegister }) => {
   const [sign, setSign] = useState(true);
 
   const signUpHandler = () => {
@@ -27,7 +27,7 @@ const Home = () => {
           className={buttonStyle}
         >Sign Up</button>
       </div>
-      {sign ? (<Login />) : (<Register />)}
+      {sign ? (<Login onLogin={onLogin} />) : (<Register onRegister={onRegister} />)}
     </div>
   )
 }

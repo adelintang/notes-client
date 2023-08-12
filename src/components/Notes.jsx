@@ -5,7 +5,13 @@ const Notes = ({ notes, onDelete, layoutAdd, layoutEdit, onShowEdit, getIdNote }
 
   return (
     <div className={`grid sm:grid-cols-1 md:grid-cols-2 ${layout}`} >
-      {notes.map((note) =>  (<Note key={note.id} note={note} onDelete={onDelete} onShowEdit={onShowEdit} getIdNote={getIdNote} />))}
+      {notes.map((note, i) => (<Note
+        key={i}
+        note={note}
+        onDelete={onDelete}
+        onShowEdit={onShowEdit}
+        getIdNote={getIdNote}
+      />))}
     </div>
   )
 }

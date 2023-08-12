@@ -1,11 +1,12 @@
 import { useState } from "react"
+import { Link } from "react-router-dom";
 
-const Login = () => {
-  const [username, setUsername] = useState("");
+const Login = ({ onLogin }) => {
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleUsername = (value) => {
-    setUsername(value)
+  const handleEmail = (value) => {
+    setEmail(value)
   }
 
   const handlePassword = (value) => {
@@ -14,7 +15,7 @@ const Login = () => {
 
   const handleForm = (e) => {
     e.preventDefault();
-    console.log({ username, password })
+    onLogin({ email, password });
   }
 
   const inputStyle = "block w-[100%] py-2 pl-2 rounded-sm text-black mb-4 font-semibold focus:outline-none focus:ring focus:ring-blue-400 bg-slate-200"
@@ -24,7 +25,7 @@ const Login = () => {
       <h1 className="text-xl font-semibold text-center mb-16">Sign In</h1>
       <form>
         <input type="text" placeholder="Masukkan Username" className={inputStyle}
-          onChange={(e) => handleUsername(e.target.value)}          
+          onChange={(e) => handleEmail(e.target.value)}          
         />
         <input type="password" placeholder="Masukkan Password" className={inputStyle}
           onChange={(e) => handlePassword(e.target.value)}
@@ -33,6 +34,7 @@ const Login = () => {
           onClick={(e) => handleForm(e)}
         >Sign In</button>
       </form>
+      <Link to="/dashboard">dashboard</Link>
     </div>
   )
 }
